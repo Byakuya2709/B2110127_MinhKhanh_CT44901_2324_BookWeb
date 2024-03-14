@@ -55,10 +55,11 @@ const actions = {
     },
 
     async register({ commit }, user) {
-        const { name, email, password, password_confirm } = user;
+        const { fullname, email, birth, password, password_confirm, address, gender } = user;
+        console.log(fullname, email, birth, password, password_confirm, address, gender);
 
         try {
-            const response = await api.post('/register', { name, email, password, password_confirm });
+            const response = await api.post('/register', { fullname, email, birth, password, password_confirm, address, gender });
             console.log(response.data);
             return response;
 

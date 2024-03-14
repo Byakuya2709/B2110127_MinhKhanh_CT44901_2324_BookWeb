@@ -8,7 +8,7 @@ exports.login = async (req, res, next) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-  if (!user) return next(new ApiError(300, "notexists"));
+  if (!user) return next(new ApiError(200, "notexists"));
 
   const math = await bcrypt.compare(password, user.password);
   if (!math) return next(new ApiError(200, "wrongPassword"));
@@ -39,8 +39,8 @@ exports.login = async (req, res, next) => {
 //register for user
 exports.register = async (req, res, next) => {
 
-  const { name, email, password, password_confirm } = req.body;
-  // console.log(name, email, password, password_confirm);
+  const { fullname, email, birth, address, gender, password, password_confirm } = req.body;
+  console.log(fullname, email, birth, address, gender, password, password_confirm);
   // if (!name || !email || !password || !password_confirm)
   //   return next(new ApiError(300, "Error typing"));
 
@@ -56,7 +56,7 @@ exports.register = async (req, res, next) => {
 
   try {
     hashedPass = await bcrypt.hash(password, 10);
-    await User.create({ name, email, password: hashedPass });
+    await User.create({ fullname, email, birth, address, gender, password: hashedPass });
     // const newUser = new User({
     //   name: name,
     //   email: email,
@@ -69,7 +69,7 @@ exports.register = async (req, res, next) => {
 
 
   } catch (error) {
-    return next(new ApiError(500, "Error"));
+    return next(new ApiError(500, "Error" + error));
   }
 };
 exports.logout = async (req, res, next2) => {

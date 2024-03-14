@@ -1,22 +1,38 @@
 <template>
   <div class="font-body bg-gray-200 dark:bg-black">
-    <!-- <Navbar /> -->
-    <div class="mt-16">
-      <router-view />
-    </div>
+  
+   
+    <InputSearch :initialSearchTerm="initialSearchTerm" @input="search" />  
+    <router-view />
+   
   </div>
+
 </template>
 
 <script>
-import Navbar from "../components/Navbar.vue";
+import InputSearch  from "../components/Search.vue";
+import Navbar from "../components/Navbar.vue"
+
+
 export default {
   name: "App",
   components: {
-    Navbar
+    Navbar,
+    InputSearch
+  },
+  data() {
+    return {
+      initialSearchTerm: 'Initial value from database'
+    };
+  },
+  methods: {
+    search(term) {
+     
+    }
   }
 };
 </script>
 
 <style>
-
-</style>
+/* Add your styles here if needed */
+</style>../components/Search.vue

@@ -11,7 +11,7 @@
                   type="email"
                   placeholder="Email"
                   v-model="email"
-                  class="border-rounded w-full py-2 px-4 outline-none focus:shadow-outline"
+                  class="border border-gray-300 rounded w-full py-2 px-4  focus:shadow-outline"
                 />
                 <p v-if="!validated.email" class="px-4 text-red-500 text-sm mt-1">Vui lòng nhập email hợp lệ.</p>
               </div>
@@ -22,7 +22,7 @@
                   type="password"
                   placeholder="Password"
                   v-model="password"
-                  class="border-rounded w-full py-2 px-4 outline-none focus:shadow-outline"
+                  class="border border-gray-300 rounded w-full py-2 px-4  focus:shadow-outline"
                 />
                 <p v-if="!validated.password" class="px-4 text-red-500 text-sm mt-1">Mật khẩu phải gồm ít nhât chữ thường, số và  không được dưới 8 kí tự .</p>
               </div>

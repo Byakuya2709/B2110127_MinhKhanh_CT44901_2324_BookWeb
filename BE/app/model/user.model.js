@@ -2,28 +2,37 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const User = new Schema({
-  name: {
+  fullname: {
     type: String,
     required: true,
   },
   email: {
     type: String,
     required: true,
-    // lowercase: true,
+    lowercase: true,
     unique: true,
-    // validatel: [
-    //   (val) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(val),
-    // ],
+  },
+  birth: {
+    type: Date,
+    required: true,
   },
   password: {
     type: String,
     required: true,
     minlength: 6,
   },
-  role: {
+  address: {
     type: String,
     required: true,
-    enum: ["reader", "manager"],
+    minlength: 6,
+  },
+  gender: {
+    type: String,
+    required: true,
+    enum: ["male", "female"],
+  },
+  role: {
+    type: String,
     default: "reader",
   },
 });
