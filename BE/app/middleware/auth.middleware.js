@@ -5,8 +5,8 @@ const ApiError = require("../middleware/api-error");
 exports.authenticate = (req, res, next) => {
   try {
     // Extract the token from the Authorization header
-    // const token = req.header("Authorization").split(" ")[1];
-
+    const token = req.header("Authorization").split(" ")[1];
+    if (!token) return next(new ApiError(401, "token failed!!"));
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
     req.UserId = decoded.id;

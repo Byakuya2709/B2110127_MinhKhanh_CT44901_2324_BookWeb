@@ -17,6 +17,10 @@ app.get("/", (req, res) => {
 
 const authenRoute = require("./app/routes/authenic.route");
 app.use("/api/", authenRoute);
+
+const managerRoute = require("./app/routes/manager.route");
+app.use("/manager/", managerRoute);
+
 app.use((res, req, next) => {
   return next(new ApiError(404, "Resource Not Found."));
 });
