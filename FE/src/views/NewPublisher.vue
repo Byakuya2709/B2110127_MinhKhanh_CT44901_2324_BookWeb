@@ -5,26 +5,26 @@
         <div class="flex max-w-4xl mt-20">
           <div class="bg-white p-8 w-full lg:w-1/2">
             <h1 class="text-gray-700 text-3xl text-center">Login</h1>
-            <form @submit.prevent = "loginUser">
+            <form @submit.prevent = "editPublisher">
               <div class="my-3">
                 <input
-                  type="email"
-                  placeholder="Email"
-                  v-model="email"
+                  type="text"
+                  placeholder="publisherName"
+                  v-model="publisherName"
                   class="border border-gray-300 rounded w-full py-2 px-4  focus:shadow-outline"
                 />
-                <p v-if="!validated.email" class="px-4 text-red-500 text-sm mt-1">Vui lòng nhập email hợp lệ.</p>
+                <p v-if="!validated.publisherName" class="px-4 text-red-500 text-sm mt-1">Vui lòng nhập email hợp lệ.</p>
               </div>
               <div class="my-3">
                 <input
                   autocomplete="off"
                   required
-                  type="password"
-                  placeholder="Password"
-                  v-model="password"
+                  type="text"
+                  placeholder="text"
+                  v-model="address"
                   class="border border-gray-300 rounded w-full py-2 px-4  focus:shadow-outline"
                 />
-                <p v-if="!validated.password" class="px-4 text-red-500 text-sm mt-1">Mật khẩu phải gồm ít nhât chữ thường, số và  không được dưới 8 kí tự .</p>
+                <p v-if="!validated.address" class="px-4 text-red-500 text-sm mt-1">Mật khẩu phải gồm ít nhât chữ thường, số và  không được dưới 8 kí tự .</p>
               </div>
               <!-- <div class="my-3 flex justify-between sm:flex-col lg:flex-row">
                 <label for=""><input type="checkbox" />Remember Me</label>
@@ -33,7 +33,7 @@
               <div class="my-3 flex justify-center items-center">
                 <input
                 type="submit"
-                 @submit="loginUser"
+                 @submit="editPublisher"
                   value="Login"
                   class="rounded-full bg-blue-600 border-blue-600 px-8 py-2 text-white w-1/2 active:true:hover:bg-violet-600 disabled:opacity-25"
                   :disabled="!isValidated"
@@ -54,7 +54,6 @@
   </template>
   
   <script>
-  import { mapActions } from "vuex";
   import Alert from '../components/Alert.vue'
   export default {
     name: "Login",
@@ -63,8 +62,8 @@
   },
     data() {
       return {
-        email: "",
-        password: "",
+        publisherName: "",
+        address: "",
         validated: [],
         alert: {
           show: false,
@@ -74,26 +73,25 @@
       };
     },
     watch:{
-      email (value){
-        this.validateEmail(value);
+      publisherName (value){
+        this.validatepublisherName(value);
       },
-      password(value){
-      this.validatePassword(value);
+      address(value){
+      this.validateAddress(value);
     },
     },
     computed:{
       isValidated() {
-      return this.validated.email && this.validated.password;
+      return this.validated.publisherName && this.validated.address;
     },
     },
     methods: {
-      ...mapActions(["login"]),
-      async loginUser() {
+      async editPublisher() {
        
         try {
-          const user = {
-            email: this.email,
-            password: this.password,
+          const publisher = {
+            publisherName: this.publisherName,
+            address: this.address,
           };
 
           const res = await this.login(user);
@@ -138,12 +136,12 @@
             return; 
         }
       },
-      validateEmail(value) {
-        this.validated['email'] = /.+@.+\.(com|vn)$/.test(value);
+      validatepublisherName(value) {
+        this.validated['publisherName'] = /.+@.+\.(com|vn)$/.test(value);
         console.log(this.validated['email']);
       },
-      validatePassword(value) {
-        this.validated['password'] =/^(?=.*[a-z])(?=.*\d).{8,}$/.test(value);
+      validateAddress(value) {
+        this.validated['address'] =/^(?=.*[a-z])(?=.*\d).{8,}$/.test(value);
         
       },
       showAlert(type, message) {

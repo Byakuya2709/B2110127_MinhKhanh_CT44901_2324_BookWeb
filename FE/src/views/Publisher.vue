@@ -1,8 +1,10 @@
 <template>
   <div>
-    <Search  @search="handleSearch" @clearSearch="clearSearchInput"/>
-
-    <div v-if="filteredPublishers.length > 0">
+    <Search   @search="handleSearch" @clearSearch="clearSearchInput"/>
+    <!-- <button  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      Refesh
+    </button> -->
+    <div v-if="filteredPublishers.length > 0 ">
       <PublisherCard
         v-for="publisher in filteredPublishers"
         :key="publisher._id"
@@ -14,12 +16,16 @@
     <div v-else>
       <p>No publishers found.</p>
     </div>
+    <div>
+      <RouterView  />
+    </div>
+
   </div>
 </template>
 
 <script>
 import { api } from '../BookApp/Api';
-import PublisherCard from "../components/PublisherCard.vue";
+import PublisherCard from "../components/CardPublisher.vue";
 import Search from '../components/Search.vue';
 
 export default {
@@ -31,6 +37,7 @@ export default {
     return {
       publishers: [],
       searchTerm: '', 
+
     };
   },
   async created() {
@@ -48,6 +55,7 @@ export default {
     },
   },
   methods: {
+
     async fetchPublishers() {
       try {
         const response = await api.get('/manager/publisher');
@@ -60,6 +68,7 @@ export default {
       try {
         // Redirect to the edit page with the publisher ID
         // Assuming you have a route for editing a publisher
+        this.activated=false;
         this.$router.push({ name: 'EditPublisher', params: { id: publisher._id } });
       } catch (error) {
         console.error('Error editing publisher:', error);
@@ -71,7 +80,7 @@ export default {
         if (!confirmDelete) return;
 
         // Call API to delete the publisher
-        await api.delete(`/api/publisher/${publisher._id}`);
+        await api.delete(`/mangager/publisher/${publisher._id}`);
 
         // Remove the deleted publisher from the local list
         this.publishers = this.publishers.filter(p => p._id !== publisher._id);
@@ -84,7 +93,8 @@ export default {
     },
     clearSearchInput() {
       this.searchTerm = '';
-    }
+    },
+ 
   },
 };
 </script>

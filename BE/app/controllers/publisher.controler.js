@@ -47,14 +47,16 @@ exports.updatePublisher = async (req, res, next) => {
     try {
         const publisherId = req.params.id;
         const { publisherName, address } = req.body;
+        // console.log(publisherName, address)
+
         const updatedPublisher = await Publisher.findByIdAndUpdate(publisherId, { publisherName, address });
         if (!updatedPublisher) {
-            return next(new ApiError(500, "Publisher not found"));
+            return next(new ApiError(500, "Error"));
         }
-        return res.status(200).json(updatedPublisher);
+        res.status(200).send({ message: "success" })
     } catch (error) {
         console.error(error);
-        return next(new ApiError(500, "Internal Server Error"));
+        return next(new ApiError(500, "Error"));
     }
 };
 
