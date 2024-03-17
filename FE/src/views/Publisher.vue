@@ -84,14 +84,14 @@ export default {
         if (!confirmDelete) return;
         
        const response= await api.delete(`/manager/publisher/${publisher._id}`);
-        if(response.data.message=="success"){
+        if(response.status="201"){
           this.showAlert('Success', 'Xóa thành công');
           setTimeout(() => {
             this.hideAlert();
          }, 2000);
         this.publishers = this.publishers.filter(p => p._id !== publisher._id);
       } }catch (error) {
-        console.error('Error deleting publisher:', error);
+        this.showAlert('Error',error.response.data.message);
       }
     },
     handleSearch(searchTerm) {

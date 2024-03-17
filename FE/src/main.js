@@ -13,7 +13,7 @@ import { removeAuthorization, setAuthorization } from "./BookApp/Api";
 
 
 const token = localStorage.getItem('token');
-console.log(token);
+console.log("Token: " + token);
 
 if (token) {
     const decodedToken = jwtDecode(token);
@@ -25,10 +25,17 @@ if (token) {
         if (currentTime < expirationTime) {
             console.log('Token is valid.');
             setAuthorization(token);
+            store.commit('SET_AUTHENTICATION', {
+                isAuthenticated: true,
+                isLoggedIn: true,
+                user: decodedToken.user,
+                token: token,
+            });
         } else {
             console.log('Token has expired.');
             removeToken();
             removeAuthorization();
+            store.commit('LOGOUT');
         }
     }
 } else {

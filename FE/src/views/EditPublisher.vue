@@ -107,7 +107,7 @@ export default {
         };
         const response = await api.post(`/manager/publisher/update/${this.$route.params.id}`,publisherData);
         console.log(response.data.message)
-        if (response.data){
+        if (response.status==201){
           this.showAlert('Success', `Cập nhật thành công`);
            setTimeout(() => {
             this.hideAlert();
@@ -115,17 +115,12 @@ export default {
             }, 2000);
            
         }
-        
       } catch (error) {
-        this.showAlert('Error', `Lỗi Không xác định`);
-           setTimeout(() => {
-            this.hideAlert();
-            }, 3000);
-            return; 
+        this.showAlert('Error',error.response.data.message);
         }
     },
     validatePublisherName(value) {
-      this.validated['publisherName'] =  this.validated.publisherName = value.length >= 5; // Adjust your validation logic
+      this.validated['publisherName'] =  this.validated.publisherName = value.length >= 5;
     },
     validateAddress(value) {
       this.validated['address'] =  this.validated.address = value.length >= 5;

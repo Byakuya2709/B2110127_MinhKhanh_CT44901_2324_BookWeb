@@ -32,10 +32,10 @@ const actions = {
         try {
             const response = await api.post('/api/login', { email, password });
             const user = response.data.user;
-            console.log(user.role);
+
             let isAuthor = false;
             if (user.role == 'manager') isAuthor = true;
-            if (response.data.message == 'Successfull') {
+            if (response.status == 201) {
                 setToken(response.data.accessToken);
                 setAuthorization(response.data.accessToken);
 
@@ -47,7 +47,7 @@ const actions = {
                     token: response.data.accessToken,
                 });
             }
-
+            console.log(user.role)
             return response;
 
 
@@ -85,8 +85,8 @@ const actions = {
 };
 
 const getters = {
-    isLoggedIn: (state) => state.isLoggedIn,
-    isAdmin: (state) => state.user && state.user.role === 'manager',
+    isLoggedIn: (state) => !!state.token,
+    isAuthenticated: (state) => state.user && state.user.role === 'manager',
 };
 
 export default new Vuex.Store({

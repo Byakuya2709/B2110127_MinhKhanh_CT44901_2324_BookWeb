@@ -6,14 +6,14 @@ exports.authenticate = (req, res, next) => {
   try {
     const token = req.header("Authorization");
     // console.log(token);
-    if (!token) return next(new ApiError(201, "Authentication failed"));
+    if (!token) return next(new ApiError(401, "CẦN ĐĂNG NHẬP ĐỂ THỰC HIỆN CHỨC NĂNG NÀY"));
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
     req.UserId = decoded.id;
 
     next();
   } catch (error) {
-    return next(new ApiError(201, "Authentication failed"));
+    return next(new ApiError(500, "LỖI SERVER, VUI LÒNG THỬ LẠI SAU"));
   }
 };
 
@@ -23,11 +23,10 @@ exports.authorize = async (req, res, next) => {
     const user = await User.findById(userId);
     console.log(userId);
     if (!user || user.role != "manager") {
-      return next(new ApiError(401, "ban khong co quyen truy cap"));
+      return next(new ApiError(401, "BẠN KHÔNG CÓ QUYỀN TRUY CẬP ĐỂ THỨC HIỆN THAO TÁC NÀY"));
     }
-
     next();
   } catch (error) {
-    return next(new ApiError(401, "ban khong co quyen truy cap"));
+    return next(new ApiError(500, "LỖI SERVER, VUI LÒNG THỬ LẠI SAU"));
   }
 };

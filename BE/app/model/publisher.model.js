@@ -11,7 +11,6 @@ const Publisher = new Schema({
         type: String,
         required: true,
         minlength: 6,
-        unique: true,
     },
 });
 module.exports = mongoose.model("Publisher", Publisher);

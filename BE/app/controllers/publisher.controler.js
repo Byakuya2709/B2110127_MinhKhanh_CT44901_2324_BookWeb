@@ -48,27 +48,33 @@ exports.updatePublisher = async (req, res, next) => {
         const publisherId = req.params.id;
         const { publisherName, address } = req.body;
         console.log(publisherName, address)
+        const isExistingPublisher = await Publisher.findOne({ publisherName: { $regex: new RegExp(publisherName, 'i') } });
+
+        if (isExistingPublisher) {
+            return next(new ApiError(400, "Nhà xuất bản đã tồn tại Hoặc không thể cập nhật trùng với tên cũ"));
+        }
 
         const updatedPublisher = await Publisher.findByIdAndUpdate(publisherId, { publisherName, address });
+
         if (!updatedPublisher) {
-            return next(new ApiError(500, "Error"));
+            return next(new ApiError(500, "KHÔNG THỂ CẬP NHẬT NHÀ XUẤT BẢN NÀY."));
         }
-        res.status(200).send({ message: "success" })
+        res.status(201).send({ message: "success" })
     } catch (error) {
         console.error(error);
-        return next(new ApiError(500, "Error"));
+        return next(new ApiError(500, "Internal Server Error"));
     }
 };
 
 exports.deletePublisher = async (req, res, next) => {
     const publisherId = req.params.id;
-    if (!mongoose.Types.ObjectId.isValid(publisherId)) return next(new ApiError(200, 'notfound'));
+    if (!mongoose.Types.ObjectId.isValid(publisherId)) return next(new ApiError(401, 'Không tìm thấy nhà xuất bản này.'));
     try {
         const deletedPublisher = await Publisher.findByIdAndDelete(publisherId);
         if (!deletedPublisher) {
-            return next(new ApiError(200, "notfound"));
+            return next(new ApiError(404, "Không tìm thấy nhà xuất bản này."));
         }
-        res.status(200).send({ message: "success" })
+        res.status(201).send({ message: "success" })
     } catch (error) {
         console.error(error);
         return next(new ApiError(500, "Internal Server Error"));
