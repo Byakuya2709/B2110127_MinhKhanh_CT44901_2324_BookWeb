@@ -14,9 +14,9 @@ router.delete('/book/:id', author.authenticate, author.authorize, book.deleteBoo
 router.get("/publisher", publisher.getAllPublishers)
 router.get('/publisher/:id', publisher.getPublisherById);
 
-router.post('/publisher/new', publisher.createPublisher);
-router.post('/publisher/update/:id', publisher.updatePublisher);
-router.delete('/publisher/:id', publisher.deletePublisher);
+router.post('/publisher/new', author.authenticate, publisher.createPublisher);
+router.post('/publisher/update/:id', author.authenticate, publisher.updatePublisher);
+router.delete('/publisher/:id', author.authenticate, publisher.deletePublisher);
 
 
 module.exports = router;

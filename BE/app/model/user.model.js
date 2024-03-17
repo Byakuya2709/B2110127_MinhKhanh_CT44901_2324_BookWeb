@@ -33,6 +33,7 @@ const User = new Schema({
   },
   role: {
     type: String,
+    enum: ["reader", "manager"],
     default: "reader",
   },
 });

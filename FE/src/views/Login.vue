@@ -89,53 +89,32 @@
     methods: {
       ...mapActions(["login"]),
       async loginUser() {
-       
+
         try {
           const user = {
             email: this.email,
             password: this.password,
           };
-
-          const res = await this.login(user);
-          if(res.data.message=="notexists"){
-          this.showAlert('Info', `Bạn đã nhập sai Email.`);
-           setTimeout(() => {
-            this.hideAlert();
-            }, 3000);
-            return; 
-          }
-          if(res.data.message=="wrongPassword"){
-          this.showAlert('Info', `Bạn đã nhập sai mật khấu.`);
-           setTimeout(() => {
-            this.hideAlert();
-            }, 3000);
-            return; 
-          }
-
-          if(res.data.message=="Successfull"){
-            this.showAlert('Success', 'Tạo tài khoản thành công! Đang chuyển sang trang đăng nhập');
-            
+           const res = await this.login(user);
+          if (res.status == 201) {
+            this.showAlert('Success', res.data.message+" . Đang chuyển sang trang người dùng");
             setTimeout(() => {
-            this.$router.push('/manager');
-           }, 2000);
-          
+              this.$router.push('/manager');
+            }, 2000);
           }
+          else if (res.response.status==404) {
+            this.showAlert('Info', res.response.data.message);
+          } 
+          else if (res.response.status==401) {
+            this.showAlert('Info', res.response.data.message);
+          } 
           else {
-            console.error('Login failed:', res.data.error);
-    }
-          // if(res.data.message=="Error"){
-          // this.showAlert('Error', `Lỗi Không xác định`);
-          //  setTimeout(() => {
-          //   this.hideAlert();
-          //   }, 3000);
-          //   return; 
-          // }
+            this.showAlert('Error', 'Lỗi không xác định!!!')
+          }
+          
         } catch (error) {
-          this.showAlert('Error', `Lỗi Không xác định`);
-           setTimeout(() => {
-            this.hideAlert();
-            }, 3000);
-            return; 
+          console.log(res)
+          this.showAlert('Error', 'Lỗi không xác định!!!');
         }
       },
       validateEmail(value) {

@@ -12,9 +12,9 @@ const state = {
 };
 
 const mutations = {
-    SET_AUTHENTICATION(state, { isAuthenticated, user, token }) {
+    SET_AUTHENTICATION(state, { isAuthenticated, isLoggedIn, user, token }) {
         state.isAuthenticated = isAuthenticated;
-        state.isLoggedIn = state.isLoggedIn;
+        state.isLoggedIn = isLoggedIn;
         state.user = user;
         state.token = token;
     },
@@ -32,12 +32,16 @@ const actions = {
         try {
             const response = await api.post('/api/login', { email, password });
             const user = response.data.user;
-
+            console.log(user.role);
+            let isAuthor = false;
+            if (user.role == 'manager') isAuthor = true;
             if (response.data.message == 'Successfull') {
                 setToken(response.data.accessToken);
                 setAuthorization(response.data.accessToken);
+
+                console.log(isAuthor);
                 commit('SET_AUTHENTICATION', {
-                    isAuthenticated: true,
+                    isAuthenticated: isAuthor,
                     isLoggedIn: true,
                     user,
                     token: response.data.accessToken,
@@ -49,8 +53,7 @@ const actions = {
 
 
         } catch (error) {
-            console.log(error);
-            return { message: 'Error', error };
+            return error;
         }
     },
 
@@ -64,8 +67,7 @@ const actions = {
             return response;
 
         } catch (error) {
-            console.log(error)
-            return { success: false, error };
+            return error;
         }
     },
 
@@ -74,7 +76,8 @@ const actions = {
             localStorage.removeItem('accessToken');
             commit('LOGOUT');
             removeAuthorization();
-            router.push('/login');
+            removeToken();
+            router.push('/');
         } catch (error) {
             console.error('Logout error:', error);
         }

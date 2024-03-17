@@ -47,7 +47,7 @@ exports.updatePublisher = async (req, res, next) => {
     try {
         const publisherId = req.params.id;
         const { publisherName, address } = req.body;
-        // console.log(publisherName, address)
+        console.log(publisherName, address)
 
         const updatedPublisher = await Publisher.findByIdAndUpdate(publisherId, { publisherName, address });
         if (!updatedPublisher) {
@@ -62,13 +62,13 @@ exports.updatePublisher = async (req, res, next) => {
 
 exports.deletePublisher = async (req, res, next) => {
     const publisherId = req.params.id;
-    if (!mongoose.Types.ObjectId.isValid(publisherId)) return next(new ApiError(400, 'Publisher not found'));
+    if (!mongoose.Types.ObjectId.isValid(publisherId)) return next(new ApiError(200, 'notfound'));
     try {
         const deletedPublisher = await Publisher.findByIdAndDelete(publisherId);
         if (!deletedPublisher) {
-            return next(new ApiError(500, "Publisher not found"));
+            return next(new ApiError(200, "notfound"));
         }
-        return next(new ApiError(200, "Publisher deleted successfully"));
+        res.status(200).send({ message: "success" })
     } catch (error) {
         console.error(error);
         return next(new ApiError(500, "Internal Server Error"));

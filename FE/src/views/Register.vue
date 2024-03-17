@@ -181,28 +181,24 @@ export default {
         }
 
         let res = await this.register(user);
-        console.log(res.data)
-        if(res.data.message=="userexists"){
-        this.showAlert('Info', `Tài khoản và email này đã tồn tại`);
-         setTimeout(() => {
-          this.hideAlert();
-          }, 3000);
-          return; 
-        }
-        
-        if(res.data.message=="sucessfully"){
-          this.showAlert('Success', 'Đăng nhập thành công. Đang chuyển hướng trang');
+        console.log(res)
+        if (res.status == 201) {
+            this.showAlert('Success', res.data.message+" . Đang chuyển sang trang đăng nhập");
+            setTimeout(() => {
+              this.$router.push('/login');
+            }, 2000);
+          }
+          else if (res.response.status==409) {
+            this.showAlert('Info', res.response.data.message);
+          } 
+          else {
+            this.showAlert('Error', 'Lỗi không xác định!!!')
+          }
           
-          setTimeout(() => {
-          this.$router.push('/');
-         }, 2000);
+        } catch (error) {
+          console.log(res)
+          this.showAlert('Error', 'Lỗi không xác định!!!');
         }
-        else {
-          console.error('Registration failed:', res.data.error);
-  }
-      } catch (error) {
-        console.log(error)
-      }
     },
     validateEmail(value) {
       this.validated['email'] = /.+@.+\.(com|vn)$/.test(value);

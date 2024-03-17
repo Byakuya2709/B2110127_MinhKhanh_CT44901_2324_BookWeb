@@ -8,10 +8,10 @@ exports.login = async (req, res, next) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-  if (!user) return next(new ApiError(200, "notexists"));
+  if (!user) return next(new ApiError(404, "Tài khoản không tồn tại. Vui lòng nhập lại."));
 
   const math = await bcrypt.compare(password, user.password);
-  if (!math) return next(new ApiError(200, "wrongPassword"));
+  if (!math) return next(new ApiError(401, "Sai mật khẩu. Vui lòng nhập lại."));
 
   try {
     var token = jwt.sign(
@@ -20,14 +20,14 @@ exports.login = async (req, res, next) => {
       },
       process.env.ACCESS_TOKEN_SECRET,
       {
-        expiresIn: 900000,
+        expiresIn: '15m',
       }
     );
 
     return res
-      .status(200)
+      .status(201)
       .send({
-        message: "Successfull",
+        message: "Đăng Nhập Thành Công",
         accessToken: token,
         user
       });
@@ -40,7 +40,7 @@ exports.login = async (req, res, next) => {
 exports.register = async (req, res, next) => {
 
   const { fullname, email, birth, address, gender, password, password_confirm } = req.body;
-  console.log(fullname, email, birth, address, gender, password, password_confirm);
+  // console.log(fullname, email, birth, address, gender, password, password_confirm);
   // if (!name || !email || !password || !password_confirm)
   //   return next(new ApiError(300, "Error typing"));
 
@@ -51,25 +51,20 @@ exports.register = async (req, res, next) => {
   //   return next(new ApiError(500, "Password does not math"));
 
   const user = await User.findOne({ email });
-  if (user) return next(new ApiError(200, "userexists"));
+  if (user) return next(new ApiError(409, "Email này đã tồn tại. Vui lòng nhập email khác."));
 
 
   try {
     hashedPass = await bcrypt.hash(password, 10);
     await User.create({ fullname, email, birth, address, gender, password: hashedPass });
-    // const newUser = new User({
-    //   name: name,
-    //   email: email,
-    //   password: hashedPass,
-    // });
-    // const saveUser = await newUser.save();
     return res
       .status(201)
-      .json({ message: "sucessfully", success: true });
+      .json({ message: "Đăng ký thành công", success: true });
 
 
   } catch (error) {
-    return next(new ApiError(500, "Error" + error));
+    // console.log(error)
+    return next(new ApiError(500, "Error"));
   }
 };
 exports.logout = async (req, res, next2) => {

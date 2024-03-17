@@ -4,16 +4,16 @@ const ApiError = require("../middleware/api-error");
 
 exports.authenticate = (req, res, next) => {
   try {
-    // Extract the token from the Authorization header
-    const token = req.header("Authorization").split(" ")[1];
-    if (!token) return next(new ApiError(401, "token failed!!"));
+    const token = req.header("Authorization");
+    // console.log(token);
+    if (!token) return next(new ApiError(201, "Authentication failed"));
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
     req.UserId = decoded.id;
 
     next();
   } catch (error) {
-    return next(new ApiError(401, "Authentication failed"));
+    return next(new ApiError(201, "Authentication failed"));
   }
 };
 
@@ -28,6 +28,6 @@ exports.authorize = async (req, res, next) => {
 
     next();
   } catch (error) {
-    return next(new ApiError(401, "fail author"));
+    return next(new ApiError(401, "ban khong co quyen truy cap"));
   }
 };

@@ -1,7 +1,7 @@
 <template>
-  <div class="container mx-auto flex">
-    <aside id="logo-sidebar" class="h-screen bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
-   <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+  <div id="manager" class=" mx-auto flex ">
+   <div id="logo-sidebar" class="w-1/5 h-screen bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+   <div class="h-full px-3 pt-8 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
       <ul class="space-y-2 font-medium">
          <li>
             <router-link to="/manager/publisher" class="flex  items-center p-2 text-gray-900 rounded-lg dark:text-wh  ite hover:bg-blue-800  dark:hover:bg-gray-700 group">
@@ -33,9 +33,9 @@
 
       </ul>
    </div>
-    </aside>
+    </div>
 
-    <div class="container p-4 sm:ml-64">
+    <div class="container mx-8 w-4/5  my-8">
       <RouterView />
     </div>
   </div>
@@ -48,5 +48,7 @@ export default {
 </script>
 
 <style scoped>
+ #logo-sidebar{
 
+ }
 </style>

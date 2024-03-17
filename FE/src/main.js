@@ -12,27 +12,29 @@ import { removeToken } from "./BookApp/Helper";
 import { removeAuthorization, setAuthorization } from "./BookApp/Api";
 
 
-const token = localStorage.getItem('token')
+const token = localStorage.getItem('token');
+console.log(token);
+
 if (token) {
     const decodedToken = jwtDecode(token);
 
     if (decodedToken && decodedToken.exp) {
         const expirationTime = decodedToken.exp * 1000;
-
         const currentTime = Date.now();
+
         if (currentTime < expirationTime) {
-            // Token is not expired
             console.log('Token is valid.');
+            setAuthorization(token);
         } else {
-            // Token has expired
             console.log('Token has expired.');
             removeToken();
             removeAuthorization();
         }
     }
-    removeToken();
-    removeAuthorization();
+} else {
+    console.log('Token not found.');
 }
+
 
 
 createApp(App)

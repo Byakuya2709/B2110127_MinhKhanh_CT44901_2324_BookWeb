@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="">
     <input
       @input="handleInput"
       v-model="searchInput"

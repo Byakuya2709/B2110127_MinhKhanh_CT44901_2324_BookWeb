@@ -1,9 +1,7 @@
 <template>
-  <div>
+  <div class="">
+    <Alert :show="alert.show" :type="alert.type" :message="alert.message" @close-alert="hideAlert" />
     <Search   @search="handleSearch" @clearSearch="clearSearchInput"/>
-    <!-- <button  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-      Refesh
-    </button> -->
     <div v-if="filteredPublishers.length > 0 ">
       <PublisherCard
         v-for="publisher in filteredPublishers"
@@ -27,17 +25,24 @@
 import { api } from '../BookApp/Api';
 import PublisherCard from "../components/CardPublisher.vue";
 import Search from '../components/Search.vue';
+import Alert from '../components/Alert.vue'
 
 export default {
   components: {
     PublisherCard,
-    Search
+    Search,
+    Alert
   },
   data() {
     return {
       publishers: [],
       searchTerm: '', 
 
+      alert: {
+        show: false,
+        type: '',
+        message: '',
+      },
     };
   },
   async created() {
@@ -68,7 +73,6 @@ export default {
       try {
         // Redirect to the edit page with the publisher ID
         // Assuming you have a route for editing a publisher
-        this.activated=false;
         this.$router.push({ name: 'EditPublisher', params: { id: publisher._id } });
       } catch (error) {
         console.error('Error editing publisher:', error);
@@ -76,15 +80,17 @@ export default {
     },
     async deletePublisher(publisher) {
       try {
-        const confirmDelete = confirm('Are you sure you want to delete this publisher?');
+        const confirmDelete = confirm('Bạn có chắc chấn muốn xóa nhà xuất bản này');
         if (!confirmDelete) return;
-
-        // Call API to delete the publisher
-        await api.delete(`/mangager/publisher/${publisher._id}`);
-
-        // Remove the deleted publisher from the local list
+        
+       const response= await api.delete(`/manager/publisher/${publisher._id}`);
+        if(response.data.message=="success"){
+          this.showAlert('Success', 'Xóa thành công');
+          setTimeout(() => {
+            this.hideAlert();
+         }, 2000);
         this.publishers = this.publishers.filter(p => p._id !== publisher._id);
-      } catch (error) {
+      } }catch (error) {
         console.error('Error deleting publisher:', error);
       }
     },
@@ -94,6 +100,16 @@ export default {
     clearSearchInput() {
       this.searchTerm = '';
     },
+    showAlert(type, message) {
+    this.alert = {
+      show: true,
+      type: type,
+      message: message,
+    }
+  },
+  hideAlert(){
+    this.alert.show=false;
+  }
  
   },
 };
