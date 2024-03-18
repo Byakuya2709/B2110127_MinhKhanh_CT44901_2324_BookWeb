@@ -7,6 +7,7 @@
             <h1 class="text-gray-700 text-3xl text-center">Login</h1>
             <form @submit.prevent = "loginUser">
               <div class="my-3">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                 <input
                   type="email"
                   placeholder="Email"
@@ -16,6 +17,7 @@
                 <p v-if="!validated.email" class="px-4 text-red-500 text-sm mt-1">Vui lòng nhập email hợp lệ.</p>
               </div>
               <div class="my-3">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mật Khẩu</label>
                 <input
                   autocomplete="off"
                   required

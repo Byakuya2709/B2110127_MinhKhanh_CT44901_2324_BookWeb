@@ -5,18 +5,23 @@
       <div class="flex mt-10 mb-10">
         <div class="bg-white w-full lg:w-1/2 p-8">
           <h1 class="text-gray-700 text-3xl text-center">Sign Up</h1>
-          <form @submit.prevent="registerUser">
+          <form @submit.prevent="registerUser" ref="registerForm">
             <div class="my-2">
+              <label for="fullname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Họ và Tên</label>
               <input
+                required
+                id="fullname"
                 type="text"
-                placeholder="Fullname"
+                placeholder="Tên đầy đủ..."
                 v-model="fullname"
                 class="border border-gray-300 rounded w-full py-2 px-4 focus:ring-3 focus:ring-blue-300"
               />
               <p v-if="!validated.fullname" class="px-4 text-red-500 text-sm mt-1">Tên người dùng không được dưới 6 kí tự.</p>
             </div>
             <div class="my-2">
+              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
               <input
+                id="email"
                 required
                 type="email"
                 placeholder="Email"
@@ -27,20 +32,24 @@
               <p v-if="!validated.email" class="px-4 text-red-500 text-sm mt-1">Vui lòng nhập email hợp lệ.</p>
             </div>
             <div class="my-2">
+              <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mật khẩu</label>
               <input
+              id="password"
                 required
                 type="password"
-                placeholder="Password"
+                placeholder="Mật khẩu..."
                 v-model="password"
                 class="border border-gray-300 rounded w-full py-2 px-4 focus:ring-3 focus:ring-blue-300"
               />
-              <p v-if="!validated.password" class="px-4 text-red-500 text-sm mt-1">Mật khẩu phải gồm ít nhất 6 kí tự.</p>
+              <p v-if="!validated.password" class="px-4 text-red-500 text-sm mt-1">Mật khẩu phải gồm ít nhất 8 kí tự bao gồm chữ thường/HOA và 1 số.</p>
             </div>
             <div class="my-2">
+              <label for="password_confirm" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nhập lại mật khẩu</label>
               <input
+              id="password_confirm"
                 required
                 type="password"
-                placeholder="Confirm Password"
+                placeholder="Nhập lại mật khẩu"
                 v-model="password_confirm"
                 class="border border-gray-300 rounded w-full py-2 px-4 focus:ring-3 focus:ring-blue-300"
                 :disabled="!validated.password"
@@ -49,12 +58,15 @@
                 <p v-if="!validated.passwordConfirm" class="px-4 text-red-500 text-sm mt-1">Vui lòng nhập đúng lại mật khẩu đã nhập.</p>
               </div>
             </div>
-<!-- col 2 -->
+
           <div class="grid md:grid-cols-2  md:gap-2">
             <div class="my-2">
+              <label for="birth" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ngày/Tháng/Năm sinh</label>
               <input
+              id="birth"
+                required
                 type="date"
-                placeholder="Date of Birth"
+                placeholder="Ngày sinh"
                 v-model="birth"
                 class="border border-gray-300 rounded w-full py-2 px-4 focus:ring-3 focus:ring-blue-300"
               />
@@ -62,7 +74,10 @@
             </div>
            
             <div class="my-2">
+              <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Địa chỉ</label>
               <input
+              required
+              id="address"
                 type="text"
                 placeholder="Address"
                 v-model="address"
@@ -71,7 +86,8 @@
               <p v-if="!validated.address" class="px-4 text-red-500 text-sm mt-1">Địa chỉ không được dưới 6 kí tự</p>
             </div>
             <div class="my-2">
-              <select v-model="gender" class="border border-gray-300 rounded w-full py-2 px-2 focus:ring-3 focus:ring-blue-300 ">
+              <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Giới tính</label>
+              <select id="gender" v-model="gender" class="border border-gray-300 rounded w-full py-2 px-2 focus:ring-3 focus:ring-blue-300 ">
                 <option value="" disabled selected>Chọn giới tính</option>
                 <option value="male">Nam</option>
                 <option value="female">Nữ</option>
@@ -87,6 +103,7 @@
                 class="rounded-full bg-blue-600 border-blue-600 px-8 py-2 text-white w-1/2 active:true:hover:bg-violet-600 disabled:opacity-25"
                 :disabled="!isValidated"
               />
+              <button type="button" @click="resetForm" class="rounded-full bg-gray-600 border-gray-600 px-8 py-2 text-white mx-8 hover:bg-red-800">Xóa</button>
             </div>
           </form>
           <div class="my-2 flex justify-center items-center">
@@ -236,8 +253,26 @@ export default {
   },
   hideAlert(){
     this.alert.show=false;
-  }
-  
+  },
+  resetForm() {
+      this.$refs.registerForm.reset();
+      this.fullname = "";
+      this.email = "";
+      this.password = "";
+      this.address = "";
+      this.gender = "";
+      this.password_confirm = "";
+      this.birth = "";
+      this.validated = {
+        fullname: false,
+        email: false,
+        password: false,
+        address: false,
+        birth: false,
+        gender: false,
+        password_confirm: false,
+      };
+    },
   },
    
     

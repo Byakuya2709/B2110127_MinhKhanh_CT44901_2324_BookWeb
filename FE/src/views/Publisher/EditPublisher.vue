@@ -7,16 +7,21 @@
           <h1 class="text-gray-700 text-3xl text-center">Chỉnh Sữa</h1>
           <form @submit.prevent="editPublisher">
             <div class="my-3">
+              <label for="publisherName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tên nhà xuất bản</label>
               <input
+              id="publisherName"
+              required
                 type="text"
-                placeholder="publisherName"
+                placeholder="Tên nhà xuất bản"
                 v-model="publisherName"
                 class="border border-gray-300 rounded w-full py-2 px-4 focus:shadow-outline"
               />
-              <p v-if="!validated.publisherName" class="px-4 text-red-500 text-sm mt-1">Tên nhà xuất bản không được dưới 8 kí tự.</p>
+              <p v-if="!validated.publisherName" class="px-4 text-red-500 text-sm mt-1">Tên nhà xuất bản không được dưới 6 kí tự.</p>
             </div>
             <div class="my-3">
+              <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Địa chỉ</label>
               <input
+              id="address"
                 autocomplete="off"
                 required
                 type="text"
@@ -24,7 +29,7 @@
                 v-model="address"
                 class="border border-gray-300 rounded w-full py-2 px-4 focus:shadow-outline"
               />
-              <p v-if="!validated.address" class="px-4 text-red-500 text-sm mt-1">Địa chỉ không được dưới 8 kí tự.</p>
+              <p v-if="!validated.address" class="px-4 text-red-500 text-sm mt-1">Địa chỉ không được dưới 6 kí tự.</p>
             </div>
             <div class="my-3 flex justify-center items-center">
               <input
@@ -49,8 +54,8 @@
 </template>
 
 <script>
-import Alert from '../components/Alert.vue'
-import { api } from '../BookApp/Api';
+import Alert from '../../components/Alert.vue'
+import { api } from '../../BookApp/Api';
 
 export default {
   name: "EditPublisher",
@@ -123,7 +128,7 @@ export default {
       this.validated['publisherName'] =  this.validated.publisherName = value.length >= 5;
     },
     validateAddress(value) {
-      this.validated['address'] =  this.validated.address = value.length >= 5;
+      this.validated['address'] =  this.validated.address = value.length >= 6;
     },
     showAlert(type, message) {
       this.alert = {

@@ -28,15 +28,26 @@ const routes = [
         component: () => import("../views/Manager.vue"),
         children: [
             {
+                path: "book",
+                name: "NewBook",
+                component: () => import("../views/Book/NewBook.vue"),
+
+            },
+            {
                 path: "publisher",
                 name: "Publisher",
-                component: () => import("../views/Publisher.vue"),
+                component: () => import("../views/Publisher/Publisher.vue"),
 
             },
             {
                 path: "publisher/edit/:id",
                 name: "EditPublisher",
-                component: () => import("../views/EditPublisher.vue")
+                component: () => import("../views/Publisher/EditPublisher.vue")
+            },
+            {
+                path: "publisher/new",
+                name: "NewPublisher",
+                component: () => import("../views/Publisher/NewPublisher.vue")
             },
         ]
     }

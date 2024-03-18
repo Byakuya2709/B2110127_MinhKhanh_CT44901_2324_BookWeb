@@ -9,7 +9,6 @@ const Publisher = new Schema({
     },
     address: {
         type: String,
-        required: true,
         minlength: 6,
     },
 });

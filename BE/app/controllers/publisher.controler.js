@@ -5,6 +5,7 @@ const Publisher = require("../model/publisher.model");
 
 exports.getAllPublishers = async (req, res, next) => {
     try {
+
         const publishers = await Publisher.find();
         return res.status(200).json(publishers);
     } catch (error) {
@@ -32,8 +33,8 @@ exports.getPublisherById = async (req, res, next) => {
 
 exports.createPublisher = async (req, res, next) => {
     const { publisherName, address } = req.body;
-    const existingPublisher = await Publisher.findOne({ $or: [{ publisherName }, { address }] });
-    if (existingPublisher) return next(new ApiError(200, "publisherExisted"));
+    const existingPublisher = await Publisher.findOne({ publisherName });
+    if (existingPublisher) return next(new ApiError(400, "Nhà xuất bản này đã tồn tại"));
     try {
         const publisher = await Publisher.create({ publisherName, address });
         return res.status(201).json(publisher);
@@ -51,7 +52,7 @@ exports.updatePublisher = async (req, res, next) => {
         const isExistingPublisher = await Publisher.findOne({ publisherName: { $regex: new RegExp(publisherName, 'i') } });
 
         if (isExistingPublisher) {
-            return next(new ApiError(400, "Nhà xuất bản đã tồn tại Hoặc không thể cập nhật trùng với tên cũ"));
+            return next(new ApiError(400, "Nhà xuất bản đã tồn tại Hoặc trùng với tên cũ"));
         }
 
         const updatedPublisher = await Publisher.findByIdAndUpdate(publisherId, { publisherName, address });

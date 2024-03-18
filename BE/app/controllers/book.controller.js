@@ -1,10 +1,8 @@
 const mongoose = require("mongoose");
 const Book = require("../model/book.model");
-// const ApiError = require("../middleware/api-error");
-// const publisher = require("../model/publisher.model");
-// const bookManager = require("../model/bookManager.model");
+const ApiError = require('../middleware/api-error');
 
-// Get all books created by the user
+
 exports.getAllBooks = async (req, res) => {
     try {
         const books = await Book.find({});
@@ -27,52 +25,24 @@ exports.getBook = async (req, res) => {
     }
 };
 
-// exports.getAllBooks = async (req, res) => {
-//     const { titiles } = req.body;
-//     try {
-//         const books = await Book.find({ titile: titiles });
-//         return res.status(200).json(books);
-//     } catch (error) {
-//         return res.status(500).json({ message: "Internal Server Error" });
-//     }
-// };
-
-
-// exports.getBooks = async (req, res) => {
-//     const creatorId = req.UserId;
-//     try {
-//         const books = await bookManager.find({ userId: userId }).populate({
-//             path: 'bookId',
-//             model: 'Book'
-//         });
-//         return res.status(200).json(books);
-//     } catch (error) {
-//         return res.status(500).json({ message: "Internal Server Error" });
-//     }
-// };
-
-// Get a single book by its ID
-
-
-// Create a new book
-exports.createBook = async (req, res) => {
+exports.createBook = async (req, res, next) => {
     const { title, price, publisher, publicationDate, available } = req.body;
-    const creatorId = req.UserId;
+    console.log(title, price, publisher, publicationDate, available);
+    const existingBook = await Book.findOne({ title, publisher });
+    if (existingBook) {
+        return next(new ApiError(400, "Sách này đã tồn tại"));
+    }
 
     try {
-        const newBook = await Book.create({
-            title,
-            price,
-            publisher,
-            publicationDate,
-            available,
 
-        });
+        const newBook = await Book.create({ title, price, publisher, publicationDate, available });
         return res.status(201).json(newBook);
     } catch (error) {
-        return res.status(500).json({ message: "Internal Server Error" });
+        console.error('Error creating book:', error);
+        return next(new ApiError(500, "Internal Server Error"));
     }
 };
+
 
 exports.updateBook = async (req, res) => {
     const bookId = req.params.id;

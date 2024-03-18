@@ -22,10 +22,10 @@
 </template>
 
 <script>
-import { api } from '../BookApp/Api';
-import PublisherCard from "../components/CardPublisher.vue";
-import Search from '../components/Search.vue';
-import Alert from '../components/Alert.vue'
+import { api } from '../../BookApp/Api';
+import PublisherCard from "../../components/CardPublisher.vue";
+import Search from '../../components/Search.vue';
+import Alert from '../../components/Alert.vue'
 
 export default {
   components: {
