@@ -16,6 +16,8 @@ const publisher = require('../controllers/publisher.controler');
 
 router.get("/publisher", publisher.getAllPublishers)
 
+router.get("/publisher/:id", publisher.getPublisherById)
+
 router.post('/publisher/new', author.authenticate, author.authorize, publisher.createPublisher);
 router.post('/publisher/update/:id', author.authenticate, author.authorize, publisher.updatePublisher);
 router.delete('/publisher/:id', author.authenticate, author.authorize, publisher.deletePublisher);

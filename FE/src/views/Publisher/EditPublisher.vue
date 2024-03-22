@@ -27,6 +27,7 @@
                 type="text"
                 placeholder="address"
                 v-model="address"
+           
                 class="border border-gray-300 rounded w-full py-2 px-4 focus:shadow-outline"
               />
               <p v-if="!validated.address" class="px-4 text-red-500 text-sm mt-1">Địa chỉ không được dưới 6 kí tự.</p>
@@ -42,11 +43,12 @@
           </form>
         </div>
         <div class="bg-white p-8 w-full lg:w-1/2 ">
+          <h1 class="text-gray-700 text-3xl text-center">Nhà xuất bản</h1>
         <div class="card bg-white shadow-md rounded-md p-6 mb-4">
           <h2 class="text-xl font-semibold">{{ publisher.publisherName }}</h2>
             <p class="text-gray-600">Address: {{ publisher.address }}</p>
       
-    </div>
+          </div>
         </div>
       </div>
     </div>
@@ -65,7 +67,7 @@ export default {
   },
   data() {
     return {
-      publisher: {},
+      publisher: [],
       publisherName: "",
       address: "",
       validated: {
@@ -100,6 +102,9 @@ export default {
       try {
         const response = await api.get(`/manager/publisher/${this.$route.params.id}`);
         this.publisher = response.data;
+        this.publisherName = this.publisher.publisherName;
+        this.address = this.publisher.address;
+        
       } catch (error) {
         console.error('Error fetching publishers:', error);
       }
