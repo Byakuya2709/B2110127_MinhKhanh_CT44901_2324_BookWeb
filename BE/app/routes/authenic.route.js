@@ -5,6 +5,7 @@ const authenic = require("../controllers/authenic.controller");
 const router = express.Router();
 
 router.post("/login", authenic.login);
+router.post("/loginadmin", authenic.loginAdmin);
 router.post("/register", authenic.register);
 
 // router.get("/logout", author.authenticate, authenic.logout);

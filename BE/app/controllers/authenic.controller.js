@@ -36,7 +36,37 @@ exports.login = async (req, res, next) => {
     return next(new ApiError(500, "Error"));
   }
 };
+exports.loginAdmin = async (req, res, next) => {
+  const { email, password } = req.body;
 
+  const user = await User.findOne({ email });
+  if (!user) return next(new ApiError(404, "Tài khoản không tồn tại. Vui lòng nhập lại."));
+
+  const math = await bcrypt.compare(password, user.password);
+  if (!math) return next(new ApiError(401, "Sai mật khẩu. Vui lòng nhập lại."));
+  if (user.role!= "manager") return next(new ApiError(404, "Tài khoản này không thuộc nhóm quán lý"));
+  try {
+    var token = jwt.sign(
+      {
+        id: user._id,
+      },
+      config.ACCESS_TOKEN_SECRET.token,
+      {
+        expiresIn: '15m',
+      }
+    );
+      console.log()
+    return res
+      .status(201)
+      .send({
+        message: "Đăng Nhập Thành Công",
+        accessToken: token,
+        user
+      });
+  } catch (err) {
+    return next(new ApiError(500, "Error"));
+  }
+};
 //register for user
 exports.register = async (req, res, next) => {
 
