@@ -1,13 +1,14 @@
 const User = require("../model/user.model");
 const jwt = require("jsonwebtoken");
 const ApiError = require("../middleware/api-error");
+const config = require("../config/config")
 
 exports.authenticate = (req, res, next) => {
   try {
     const token = req.header("Authorization");
     // console.log(token);
     if (!token) return next(new ApiError(401, "CẦN ĐĂNG NHẬP ĐỂ THỰC HIỆN CHỨC NĂNG NÀY"));
-    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    const decoded = jwt.verify(token, config.ACCESS_TOKEN_SECRET.token);
 
     req.UserId = decoded.id;
 

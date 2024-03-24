@@ -48,7 +48,6 @@ exports.updatePublisher = async (req, res, next) => {
     try {
         const publisherId = req.params.id;
         const { publisherName, address } = req.body;
-        console.log(publisherName, address)
         const isExistingPublisher = await Publisher.findOne({ publisherName: { $regex: new RegExp(publisherName, 'i') } });
 
         if (isExistingPublisher) {
@@ -62,7 +61,7 @@ exports.updatePublisher = async (req, res, next) => {
         }
         res.status(201).send({ message: "success" })
     } catch (error) {
-        console.error(error);
+            console.error(error);
         return next(new ApiError(500, "Internal Server Error"));
     }
 };

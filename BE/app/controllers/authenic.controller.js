@@ -3,6 +3,7 @@ const User = require("../model/user.model");
 const ApiError = require("../middleware/api-error");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const config = require("../config/config")
 
 exports.login = async (req, res, next) => {
   const { email, password } = req.body;
@@ -18,12 +19,12 @@ exports.login = async (req, res, next) => {
       {
         id: user._id,
       },
-      process.env.ACCESS_TOKEN_SECRET,
+      config.ACCESS_TOKEN_SECRET.token,
       {
         expiresIn: '15m',
       }
     );
-
+      console.log()
     return res
       .status(201)
       .send({

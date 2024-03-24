@@ -10,7 +10,9 @@ router.post('/book/new', author.authenticate, author.authorize, book.createBook)
 router.post('/book/update/:id', author.authenticate, author.authorize, book.updateBook);
 router.delete('/book/:id', author.authenticate, author.authorize, book.deleteBook);
 
+router.get('/book',book.getAllBooks);
 
+router.get('/book/:id',book.getBook);
 
 const publisher = require('../controllers/publisher.controler');
 

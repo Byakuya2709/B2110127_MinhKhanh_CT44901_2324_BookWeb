@@ -4,8 +4,8 @@
       <div class="flex justify-center items-center h-full">
         <div class="flex max-w-4xl mt-20">
           <div class="bg-white p-8 w-full ">
-            <h1 class="text-gray-700 text-3xl text-center">Thêm nhà xuất bản sách</h1>
-            <form @submit.prevent="newBook" ref="bookForm">
+            <h1 class="text-gray-700 text-3xl text-center">Chỉnh sửa sách</h1>
+            <form @submit.prevent="editBook">
               <!-- title -->
               <div class="my-3">
                 <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tên Sách</label>
@@ -70,17 +70,6 @@
            <!-- so luong -->
             <div class="my-2">
               <label for="available" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Số lượng</label>
-              <!-- <select id="available" v-model="available" class="border border-gray-300 rounded w-full py-2 px-2 focus:ring-3 focus:ring-blue-300 ">
-                <option value="" disabled selected>Chọn số lượng</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-              </select> -->
                 <input
                   id="available"
                   required
@@ -102,7 +91,7 @@
                   class="rounded-full bg-blue-600 border-blue-600 px-8 py-2 text-white w-1/2 active:true:hover:bg-violet-600 disabled:opacity-25"
                   :disabled="!isValidated"
                 />
-                <button type="button" @click="resetForm" class="rounded-full bg-gray-600 border-gray-600 px-8 py-2 text-white mx-8 hover:bg-red-800">Xóa</button>
+            
               </div>
             </form>
           </div>
@@ -116,7 +105,7 @@
   import { api } from '../../BookApp/Api';
   
   export default {
-    name: "NewBook",
+    name: "EditBook",
     components: {
       Alert,
     },
@@ -142,9 +131,6 @@
         },
       };
     },
-    async created() {
-    await this.fetchPublishers();
-  },
     watch: {
       title(value) {
         this.validatebookName(value);
@@ -167,44 +153,58 @@
         return this.validated.title && this.validated.price && this.validated.publisher && this.validated.publicationDate && this.validated.available;
       },
     },
+    mounted() {
+    this.retrieve();
+    this.fetchPublishers();
+  },
     methods: {
-      // retrive puslisher name
+    async retrieve() {
+        try {
+        const response = await api.get(`/manager/book/${this.$route.params.id}`);
+        console.log(response)
+        this.title = response.data.title;
+        this.price = response.data.price;
+        this.publisher = response.data.publisher;
+        this.available =response.data.available;
+         this.publicationDate = response.data.publicationDate;
+
+      } catch (error) {
+        console.error('Error fetching Books:', error);
+      }
+    },
       async fetchPublishers() {
       try {
-        const response = await api.get('/manager/book');
+        const response = await api.get('/manager/publisher');
         this.nxbs = response.data;
       } catch (error) {
         console.error('Error fetching publishers:', error);
       }
     },
-// create
-      async newBook() {
-        await Promise.all([this.fetchPublishers()]);
-        try {
-          const publisherData = {
-            title: this.title,
-            price: this.price,
-            publisher:this.publisher,
-            publicationDate:this.publicationDate,
-            available:this.available,
-            
-          };
-          console.log(this.publisher);
-          const response = await api.post(`/manager/book/new`,publisherData);
-          console.log(response)
-          if (response.status==201){
-            this.showAlert('Success', `Tạo mới thành công.`);
-             setTimeout(() => {
-              this.hideAlert();
-              this.$router.push('/manager');
-              }, 2000);
-             
-          }
-        } catch (error) {
-          this.showAlert('Error',error.response.data.message);
-          }
-      },
-      // validate
+
+    async editBook() {
+      try {
+        const bookData = {
+          title: this.title,
+          price: this.price,
+          publisher:this.publisher,
+          publicationDate:this.publicationDate,
+          available:this.available,
+        };
+        const response = await api.post(`/manager/book/update/${this.$route.params.id}`,bookData);
+        console.log(response.data.message)
+        if (response.status==201){
+          this.showAlert('Success', `Cập nhật thành công`);
+           setTimeout(() => {
+            this.hideAlert();
+            this.$router.push('/manager/book');
+            }, 2000);
+           
+        }
+      } catch (error) {
+        this.showAlert('Error',error.response.data.message);
+        }
+    },
+      
       validatebookName(value) {
         this.validated['title'] =  this.validated.title = value.length >= 6;
       },

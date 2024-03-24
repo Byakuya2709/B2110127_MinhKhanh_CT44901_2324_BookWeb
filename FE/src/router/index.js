@@ -28,10 +28,22 @@ const routes = [
         component: () => import("../views/Manager.vue"),
         children: [
             {
-                path: "book",
+                path: "book/new",
                 name: "NewBook",
                 component: () => import("../views/Book/NewBook.vue"),
 
+            },
+           
+            {
+                path: "book",
+                name: "Book",
+                component: () => import("../views/Book/Book.vue"),
+
+            },
+            {
+                path: "book/edit/:id",
+                name: "EditBook",
+                component: () => import("../views/Book/EditBook.vue")
             },
             {
                 path: "publisher",

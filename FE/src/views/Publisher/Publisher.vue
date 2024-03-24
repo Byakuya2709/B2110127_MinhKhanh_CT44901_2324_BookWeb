@@ -1,7 +1,13 @@
 <template>
   <div class="">
+    
     <Alert :show="alert.show" :type="alert.type" :message="alert.message" @close-alert="hideAlert" />
     <Search   @search="handleSearch" @clearSearch="clearSearchInput"/>
+    <div class="flex justify-center">
+      <p class=" mt-6 mb-6  font-bold tracking-tight text-gray-900 dark:text-white text-4xl">Nhà Xuất Bản</p>
+    </div>
+
+
     <div v-if="filteredPublishers.length > 0 ">
       <PublisherCard
         v-for="publisher in filteredPublishers"
