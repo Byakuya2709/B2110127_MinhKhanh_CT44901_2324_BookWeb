@@ -10,12 +10,14 @@
 
     <div v-if="filteredPublishers.length > 0 ">
       <PublisherCard
-        v-for="publisher in filteredPublishers"
+      v-for="(publisher, index) in filteredPublishers"
         :key="publisher._id"
         :publisher="publisher"
         @edit-publisher="editPublisher"
         @delete-publisher="deletePublisher"
-      />
+      >
+      <img class="w-50 h-40 mb-3  mx-8 shadow-lg" :src="`../../public/Publishers/nxb${index}.jpg`" alt="NXB image">
+      </PublisherCard>
     </div>
     <div v-else>
       <p>No publishers found.</p>

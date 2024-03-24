@@ -8,7 +8,7 @@ const routes = [
         component: Home,
         children: [
             {
-                path: "/api/login",
+                path: "/api/loginadmin",
                 name: "Login",
                 component: () => import("../views/Login.vue")
 

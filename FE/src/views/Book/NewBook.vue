@@ -4,7 +4,7 @@
       <div class="flex justify-center items-center h-full">
         <div class="flex max-w-4xl mt-20">
           <div class="bg-white p-8 w-full ">
-            <h1 class="text-gray-700 text-3xl text-center">Thêm nhà xuất bản sách</h1>
+            <h1 class="text-gray-700 text-3xl text-center">Thêm Sách</h1>
             <form @submit.prevent="newBook" ref="bookForm">
               <!-- title -->
               <div class="my-3">
@@ -94,6 +94,18 @@
               
               <p v-if="!validated.available" class="px-4 text-red-500 text-sm mt-1">Vui lòng số lượng sách</p>
             </div>
+
+            <div class="my-2">
+              <label for="imageURI" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hình Ảnh</label>
+              <input
+                  id="imageURI"
+                  required
+                  type="file"
+                  class="border border-gray-300 rounded w-full focus:shadow-outline"
+                  @change="handleImageChange"
+                  accept="image/*"
+                />
+            </div>
             </div>
               <div class="my-3 flex justify-center items-center">
                 <input
@@ -128,6 +140,7 @@
         publisher:"",
         publicationDate:"",
         available:"",
+        imageURI:"",
         validated: {
           title: false,
           price: false,
@@ -168,17 +181,17 @@
       },
     },
     methods: {
-      // retrive puslisher name
+  
       async fetchPublishers() {
       try {
-        const response = await api.get('/manager/book');
+        const response = await api.get('/manager/publisher');
         this.nxbs = response.data;
       } catch (error) {
         console.error('Error fetching publishers:', error);
       }
     },
 // create
-      async newBook() {
+async newBook() {
         await Promise.all([this.fetchPublishers()]);
         try {
           const publisherData = {
@@ -204,6 +217,14 @@
           this.showAlert('Error',error.response.data.message);
           }
       },
+
+// image handler
+handleImageChange(event) {
+  const file = event.target.files[0];
+  this.imageURI = URL.createObjectURL(file);
+
+},
+
       // validate
       validatebookName(value) {
         this.validated['title'] =  this.validated.title = value.length >= 6;

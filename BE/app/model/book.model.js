@@ -7,5 +7,6 @@ const Book = new Schema({
     publisher: { type: String }, //nxb
     publicationDate: { type: Date }, //nam xuat ban
     available: { type: Number }
+    
 });
 module.exports = mongoose.model("Book", Book);
