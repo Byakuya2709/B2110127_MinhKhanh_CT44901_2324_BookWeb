@@ -30,7 +30,7 @@ const actions = {
     async login({ commit }, user) {
         const { email, password } = user;
         try {
-            const response = await api.post('/api/login', { email, password });
+            const response = await api.post('/api/loginadmin', { email, password });
             const user = response.data.user;
 
             let isAuthor = false;

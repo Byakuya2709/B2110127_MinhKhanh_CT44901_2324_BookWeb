@@ -3,7 +3,7 @@
    <div id="logo-sidebar" class="w-1/5 h-screen bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
    <div class="h-full px-3 pt-8 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
       <ul class="space-y-2 font-medium">
-         <li>
+         <!-- <li>
             <router-link to="/manager/publisher" class="flex  items-center p-2 text-gray-900 rounded-lg dark:text-wh  ite hover:bg-blue-800  dark:hover:bg-gray-700 group">
                <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                   <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
@@ -11,7 +11,7 @@
                </svg>
                <span class="ms-3"> Quản Lý Trang Cá Nhân</span>
             </router-link>
-         </li>
+         </li> -->
          <li>
           <router-link to="/manager/book" class="flex  items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-blue-800  dark:hover:bg-gray-700 group">
                <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
