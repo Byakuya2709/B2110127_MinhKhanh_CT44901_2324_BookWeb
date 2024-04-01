@@ -100,6 +100,8 @@ exports.register = async (req, res, next) => {
     return next(new ApiError(500, "Error"));
   }
 };
+// dang ky
+
 exports.registeradmin = async (req, res, next) => {
 
   const { fullname, email, birth, address, gender, password, password_confirm } = req.body;
@@ -122,9 +124,29 @@ exports.registeradmin = async (req, res, next) => {
     return next(new ApiError(500, "Error"));
   }
 };
-exports.logout = async (req, res, next2) => {
+// dang xuat
+exports.logout = async (req, res, next) => {
   window.localStorage.clear();
   res.status(200).send({
     message: "Logout successful",
   });
+};
+exports.getManager = async (req, res, next) => {
+  const token = req.header("Authorization");
+  
+  if (!token) return next(new ApiError(401, "CẦN ĐĂNG NHẬP ĐỂ THỰC HIỆN CHỨC NĂNG NÀY"));
+  
+  try {
+    const decoded = jwt.verify(token, config.ACCESS_TOKEN_SECRET.token);
+    const userId =decoded.id;
+    const manager = await Manager.findById(userId)
+    if (!manager) return next(new ApiError(409, "Không tồn tại tài khoản này!!"));
+    
+  
+    return res.status(200).json(manager);
+  } catch (error) {
+    // Handle token verification errors
+    return next(new ApiError(501, "Error"));
+  }
+
 };

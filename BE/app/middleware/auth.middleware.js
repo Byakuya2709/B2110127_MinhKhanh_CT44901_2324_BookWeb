@@ -6,7 +6,7 @@ const config = require("../config/config")
 exports.authenticate = (req, res, next) => {
   try {
     const token = req.header("Authorization");
-    // console.log(token);
+    console.log(token);
     if (!token) return next(new ApiError(401, "CẦN ĐĂNG NHẬP ĐỂ THỰC HIỆN CHỨC NĂNG NÀY"));
     const decoded = jwt.verify(token, config.ACCESS_TOKEN_SECRET.token);
 

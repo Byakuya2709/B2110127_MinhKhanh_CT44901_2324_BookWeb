@@ -44,10 +44,7 @@ export default {
       return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
     },
     formatDate(date) {
-      if (!date) return '';
-      // Extract date portion and format as dd/mm/yyyy
-      const formattedDate = new Date(date).toISOString().split('T')[0];
-      return formattedDate.split('-').reverse().join('/');
+      return new Date(date).toLocaleDateString();
     }
   },
 
