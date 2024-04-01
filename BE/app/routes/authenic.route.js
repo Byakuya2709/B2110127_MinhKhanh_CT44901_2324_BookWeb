@@ -7,6 +7,6 @@ const router = express.Router();
 router.post("/login", authenic.login);
 router.post("/loginadmin", authenic.loginAdmin);
 router.post("/register", authenic.register);
-
+router.post("/registeradmin", authenic.registeradmin);
 // router.get("/logout", author.authenticate, authenic.logout);
 module.exports = router;

@@ -202,7 +202,7 @@ export default {
         if (res.status == 201) {
             this.showAlert('Success', res.data.message+" . Đang chuyển sang trang đăng nhập");
             setTimeout(() => {
-              this.$router.push('/api/login');
+              this.$router.push('/api/loginadmin');
             }, 2000);
           }
           else if (res.response.status==409) {

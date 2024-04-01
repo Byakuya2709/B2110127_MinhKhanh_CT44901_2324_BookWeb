@@ -62,7 +62,7 @@ const actions = {
         console.log(fullname, email, birth, password, password_confirm, address, gender);
 
         try {
-            const response = await api.post('/api/register', { fullname, email, birth, password, password_confirm, address, gender });
+            const response = await api.post('/api/registeradmin', { fullname, email, birth, password, password_confirm, address, gender });
             console.log(response.data);
             return response;
 

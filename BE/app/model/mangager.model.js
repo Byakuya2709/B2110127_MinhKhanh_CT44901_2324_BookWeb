@@ -14,6 +14,7 @@ const Manager = new Schema({
     },
     birth: {
         type: Date,
+        required: true,
     },
     password: {
         type: String,
@@ -28,13 +29,11 @@ const Manager = new Schema({
     gender: {
         type: String,
         required: true,
-        enum: ["male", "female", "none"],
-        default: "none",
+        enum: ["male", "female"],
     },
     role: {
         type: String,
-        required: true,
-        enum: ["admin", "manager"],
+        enum: ["reader", "manager"],
         default: "manager",
     },
 });

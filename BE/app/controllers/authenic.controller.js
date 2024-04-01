@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("../model/user.model");
+const Manager = require("../model/mangager.model")
 const ApiError = require("../middleware/api-error");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -24,7 +25,7 @@ exports.login = async (req, res, next) => {
         expiresIn: '15m',
       }
     );
-      console.log()
+    console.log()
     return res
       .status(201)
       .send({
@@ -39,12 +40,12 @@ exports.login = async (req, res, next) => {
 exports.loginAdmin = async (req, res, next) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
+  const user = await Manager.findOne({ email });
   if (!user) return next(new ApiError(404, "Tài khoản không tồn tại. Vui lòng nhập lại."));
 
   const math = await bcrypt.compare(password, user.password);
   if (!math) return next(new ApiError(401, "Sai mật khẩu. Vui lòng nhập lại."));
-  if (user.role!= "manager") return next(new ApiError(404, "Tài khoản này không thuộc nhóm quán lý"));
+  if (user.role != "manager") return next(new ApiError(404, "Tài khoản này không thuộc nhóm quán lý"));
   try {
     var token = jwt.sign(
       {
@@ -55,7 +56,7 @@ exports.loginAdmin = async (req, res, next) => {
         expiresIn: '15m',
       }
     );
-      console.log()
+    console.log()
     return res
       .status(201)
       .send({
@@ -83,11 +84,34 @@ exports.register = async (req, res, next) => {
 
   const user = await User.findOne({ email });
   if (user) return next(new ApiError(409, "Email này đã tồn tại. Vui lòng nhập email khác."));
-
+  const manager = await Manager.findOne({ email });
+  if (manager) return next(new ApiError(409, "Email này đã tồn tại. Vui lòng nhập email khác."));
 
   try {
     hashedPass = await bcrypt.hash(password, 10);
     await User.create({ fullname, email, birth, address, gender, password: hashedPass });
+    return res
+      .status(201)
+      .json({ message: "Đăng ký thành công", success: true });
+
+
+  } catch (error) {
+    // console.log(error)
+    return next(new ApiError(500, "Error"));
+  }
+};
+exports.registeradmin = async (req, res, next) => {
+
+  const { fullname, email, birth, address, gender, password, password_confirm } = req.body;
+
+  const manager = await Manager.findOne({ email });
+  if (manager) return next(new ApiError(409, "Email này đã tồn tại. Vui lòng nhập email khác."));
+  const user = await User.findOne({ email });
+  if (user) return next(new ApiError(409, "Email này đã tồn tại. Vui lòng nhập email khác."));
+
+  try {
+    hashedPass = await bcrypt.hash(password, 10);
+    await Manager.create({ fullname, email, birth, address, gender, password: hashedPass });
     return res
       .status(201)
       .json({ message: "Đăng ký thành công", success: true });
