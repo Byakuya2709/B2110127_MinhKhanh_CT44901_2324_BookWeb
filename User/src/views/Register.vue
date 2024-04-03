@@ -4,7 +4,7 @@
     <div class="flex justify-center items-center h-full">
       <div class="flex mt-10 mb-10">
         <div class="bg-white w-full lg:w-1/2 p-8">
-          <h1 class="text-gray-700 text-3xl text-center">Sign Up</h1>
+          <h1 class="text-gray-700 text-3xl text-center">Đăng Ký</h1>
           <form @submit.prevent="registerUser" ref="registerForm">
             <div class="my-2">
               <label for="fullname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Họ và Tên</label>
