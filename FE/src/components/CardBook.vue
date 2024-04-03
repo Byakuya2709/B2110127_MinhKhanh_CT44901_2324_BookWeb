@@ -2,9 +2,8 @@
 
 
 
-  <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-
-    <div class="flex flex-col items-center pb-5">
+  <div class="w-full max-w-sm bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
+    <div id="cardbook" class="flex flex-col items-center pb-5">
      <slot></slot>
       <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{ book.title }}</h5>
       <span class="text-sm text-gray-500 dark:text-gray-400">Nhà xuất bản: {{ book.publisher }}</span>
@@ -54,10 +53,8 @@ export default {
 </script>
 
 <style>
-#cardNXB {
-  justify-content: space-between;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 20px;
+#cardbook {
+ flex-direction: row;
+ background-color: #e5f4f9 ;
 }
 </style>
