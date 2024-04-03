@@ -99,9 +99,9 @@
           };
            const res = await this.login(user);
           if (res.status == 201) {
-            this.showAlert('Success', res.data.message+" . Đang chuyển sang trang quản lý");
+            this.showAlert('Success', res.data.message+" . Đang chuyển sang trang người dùng");
             setTimeout(() => {
-              this.$router.push('/manager');
+              this.$router.push('/user');
             }, 2000);
           }
           else if (res.response.status==404) {

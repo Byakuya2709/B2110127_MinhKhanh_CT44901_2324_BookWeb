@@ -8,7 +8,7 @@ const routes = [
         component: Home,
         children: [
             {
-                path: "/api/loginadmin",
+                path: "/api/login",
                 name: "Login",
                 component: () => import("../views/Login.vue")
 
@@ -29,20 +29,14 @@ const routes = [
     },
 
     {
-        path: "/manager",
-        name: "Manager",
-        component: () => import("../views/Manager.vue"),
+        path: "/user",
+        name: "User",
+        component: () => import("../views/User.vue"),
         children: [
             {
                 path: "profile",
                 name: "Profile",
                 component: () => import("../views/Profile.vue"),
-
-            },
-            {
-                path: "book/new",
-                name: "NewBook",
-                component: () => import("../views/Book/NewBook.vue"),
 
             },
 
@@ -52,27 +46,7 @@ const routes = [
                 component: () => import("../views/Book/Book.vue"),
 
             },
-            {
-                path: "book/edit/:id",
-                name: "EditBook",
-                component: () => import("../views/Book/EditBook.vue")
-            },
-            {
-                path: "publisher",
-                name: "Publisher",
-                component: () => import("../views/Publisher/Publisher.vue"),
 
-            },
-            {
-                path: "publisher/edit/:id",
-                name: "EditPublisher",
-                component: () => import("../views/Publisher/EditPublisher.vue")
-            },
-            {
-                path: "publisher/new",
-                name: "NewPublisher",
-                component: () => import("../views/Publisher/NewPublisher.vue")
-            },
         ]
     }
 

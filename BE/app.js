@@ -22,6 +22,9 @@ app.use("/api/", authenRoute);
 const managerRoute = require("./app/routes/manager.route");
 app.use("/manager/", managerRoute);
 
+const userRoute = require("./app/routes/user.route");
+app.use("/user/", userRoute);
+
 
 // Middleware xử lý lỗi 404
 app.use((req, res, next) => {

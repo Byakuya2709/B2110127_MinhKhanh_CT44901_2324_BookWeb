@@ -11,7 +11,7 @@ exports.login = async (req, res, next) => {
 
   const user = await User.findOne({ email });
   if (!user) return next(new ApiError(404, "Tài khoản không tồn tại. Vui lòng nhập lại."));
-
+  if (user.role == "manager") return next(new ApiError(404, "Tài khoản này là tài khoản nhóm quán lý"));
   const math = await bcrypt.compare(password, user.password);
   if (!math) return next(new ApiError(401, "Sai mật khẩu. Vui lòng nhập lại."));
 
@@ -133,17 +133,36 @@ exports.logout = async (req, res, next) => {
 };
 exports.getManager = async (req, res, next) => {
   const token = req.header("Authorization");
-  
+
   if (!token) return next(new ApiError(401, "CẦN ĐĂNG NHẬP ĐỂ THỰC HIỆN CHỨC NĂNG NÀY"));
-  
+
   try {
     const decoded = jwt.verify(token, config.ACCESS_TOKEN_SECRET.token);
-    const userId =decoded.id;
+    const userId = decoded.id;
     const manager = await Manager.findById(userId)
     if (!manager) return next(new ApiError(409, "Không tồn tại tài khoản này!!"));
-    
-  
+
+
     return res.status(200).json(manager);
+  } catch (error) {
+    // Handle token verification errors
+    return next(new ApiError(501, "Error"));
+  }
+
+};
+exports.getUser = async (req, res, next) => {
+  const token = req.header("Authorization");
+
+  if (!token) return next(new ApiError(401, "CẦN ĐĂNG NHẬP ĐỂ THỰC HIỆN CHỨC NĂNG NÀY"));
+
+  try {
+    const decoded = jwt.verify(token, config.ACCESS_TOKEN_SECRET.token);
+    const userId = decoded.id;
+    const user = await User.findById(userId)
+    if (!user) return next(new ApiError(409, "Không tồn tại tài khoản này!!"));
+
+
+    return res.status(200).json(user);
   } catch (error) {
     // Handle token verification errors
     return next(new ApiError(501, "Error"));
