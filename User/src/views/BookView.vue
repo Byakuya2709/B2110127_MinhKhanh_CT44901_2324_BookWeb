@@ -50,9 +50,11 @@
         }
       },
       borrowBook() {
-        // Implement the functionality to handle borrowing the book.
-        console.log("Borrow book clicked");
-        // You can add your logic here to handle borrowing the book, such as calling an API to update the book's status.
+        try {  
+          this.$router.push(`/user/book/borrow/${this.$route.params.id}`);
+      } catch (error) {
+        console.error('Error editing book:', error);
+      }
       },
       formatPrice(price) {
         if (!price) return '';

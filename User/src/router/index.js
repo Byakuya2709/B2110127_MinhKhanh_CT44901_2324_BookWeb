@@ -58,7 +58,18 @@ const routes = [
                 component: () => import("../views/BookView.vue"),
 
             },
+            {
+                path: "book/borrow/:id",
+                name: "BookBorrow",
+                component: () => import("../views/BookBorrow.vue"),
 
+            },
+            {
+                path: "book/borrow/manager/:id",
+                name: "BorrowManaga",
+                component: () => import("../views/BorrowManaga.vue"),
+
+            },
         ]
     }
 

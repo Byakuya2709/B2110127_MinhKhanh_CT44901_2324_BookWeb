@@ -6,6 +6,11 @@ const BookManager = new Schema({
     bookId: { type: mongoose.Schema.Types.ObjectId, ref: 'Book', required: true },
     borrowDate: { type: Date, default: Date.now },
     returnDate: { type: Date },
-    returned: { type: Boolean, default: false }
+    returned: { type: Boolean, default: false },
+    status: {
+        type: String,
+        enum: ["Đang Chờ Xác Nhận", "Đang Mượn"],
+        default: "Đang Chờ Xác Nhận",
+    }
 });
 module.exports = mongoose.model("BookManager", BookManager);

@@ -95,7 +95,7 @@
               <p v-if="!validated.available" class="px-4 text-red-500 text-sm mt-1">Vui lòng số lượng sách</p>
             </div>
 
-            <div class="my-2">
+            <!-- <div class="my-2">
               <label for="imageURI" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hình Ảnh</label>
               <input
                   id="imageURI"
@@ -105,7 +105,7 @@
                   @change="handleImageChange"
                   accept="image/*"
                 />
-            </div>
+            </div> -->
             </div>
               <div class="my-3 flex justify-center items-center">
                 <input
