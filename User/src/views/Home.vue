@@ -21,4 +21,4 @@ export default {
 
 <style>
 /* Add your styles here if needed */
-</style>../components/Search.vue
+</style>

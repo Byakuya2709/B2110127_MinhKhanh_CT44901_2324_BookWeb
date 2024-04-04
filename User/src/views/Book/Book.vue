@@ -11,8 +11,8 @@
       <div>
         <div v-if="filteredBook.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <!-- Displaying books -->
-          <BookCard v-for="(book, index) in filteredBook" :key="index" :book="book" @edit-book="editBook" @delete-book="deleteBook">
-            <img class="w-50 h-40 mb-3 shadow-lg" :src="`../../public/Books/book${index}.jpg`" alt="Book image" />
+          <BookCard v-for="(book, index) in filteredBook" :key="index" :book="book" @view-book="viewBook">
+                    <img class="w-50 h-40 m-3 shadow-lg" :src="`../../public/Books/${book.title}.png`" alt="Book image" />
         </BookCard>
         </div>
         <div v-else>
@@ -70,32 +70,14 @@
         }
       },
       // Handle editing a book
-      editBook(book) {
-        try {
-        
-        this.$router.push({ name: 'EditBook', params: { id: book._id } });
+      viewBook(book) {
+        try {  
+        this.$router.push({ name: 'BookView', params: { id: book._id } });
       } catch (error) {
         console.error('Error editing book:', error);
       }
       },
 
-      async deleteBook(book) {
-        try {
-          const confirmDelete = confirm('Bạn có chắc chắn muốn xóa sách này?');
-          if (!confirmDelete) return;
-          
-          const response = await api.delete(`/manager/book/${book._id}`);
-          if (response.status === 201) {
-            this.showAlert('Success', 'Xóa thành công');
-            setTimeout(() => {
-              this.hideAlert();
-            }, 2000);
-            this.books = this.books.filter(p => p._id !== book._id);
-          }
-        } catch (error) {
-          this.showAlert('Error', error.response.data.message);
-        }
-      },
       // Handle search term input
       handleSearch(searchTerm) {
         this.searchTerm = searchTerm;

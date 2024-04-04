@@ -7,7 +7,7 @@
   <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
     <router-link to="/api/login" v-if="!$store.state.isLoggedIn" class=" mx-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</router-link>
     <router-link to="/api/register" v-if="!$store.state.isLoggedIn" class="mx-2 marginRight text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register</router-link>
-    <button @click="logout" v-if="$store.state.isLoggedIn" class=" mx-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Logout</button>
+    <button @click="logout" v-if="$store.state.isLoggedIn" class=" mx-2 text-white bg-red-600 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Logout</button>
   </div>
   <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
     <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
@@ -42,7 +42,7 @@ export default {
     type() {
       return {
         'bg-white dark:bg-gray-900  w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600': !this.isLoggedIn && !this.isAuthenticated,
-        'bg-green-400 dark:bg-gray-900 w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600': this.isLoggedIn && !this.isAuthenticated,
+        'bg-gray-400 dark:bg-gray-900 w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600': this.isLoggedIn && !this.isAuthenticated,
         'bg-red-400 dark:bg-gray-900 w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600': this.isLoggedIn && this.isAuthenticated,
         // Add more classes based on your alert types
       };
