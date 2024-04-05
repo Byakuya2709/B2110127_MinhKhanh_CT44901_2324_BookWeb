@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white p-8 w-full">
     <Alert :show="alert.show" :type="alert.type" :message="alert.message" @close-alert="hideAlert" />
-      <h1 class="text-gray-700 text-3xl text-center">Mượn Sách</h1>
+      <h1 class=" text-center mt-6 mb-6  font-bold tracking-tight text-gray-900 dark:text-white text-4xl">Mượn Sách</h1>
       <form @submit.prevent="borrowBook">
           <div class="my-3">
               <label for="userID" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Người Mượn:</label>
