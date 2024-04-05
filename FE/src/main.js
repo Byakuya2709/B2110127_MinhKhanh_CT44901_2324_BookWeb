@@ -12,7 +12,7 @@ import { removeToken } from "./BookApp/Helper";
 import { removeAuthorization, setAuthorization } from "./BookApp/Api";
 
 
-const token = localStorage.getItem('token');
+const token = localStorage.getItem('tokenManager');
 console.log("Token: " + token);
 
 if (token) {

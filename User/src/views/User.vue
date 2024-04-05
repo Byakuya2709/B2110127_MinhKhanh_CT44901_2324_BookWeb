@@ -69,7 +69,7 @@ export default {
   },
   methods:{
    getUserId() {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("tokenUser");
       if (token) {
         const decodedToken = jwtDecode(token);
         this.userId = decodedToken.id;

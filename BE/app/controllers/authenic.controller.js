@@ -169,3 +169,17 @@ exports.getUser = async (req, res, next) => {
   }
 
 };
+exports.getUserID = async (req, res, next) => {
+  const userId = req.params.id;
+  try {
+    const user = await User.findById(userId)
+    if (!user) return next(new ApiError(409, "Không tồn tại tài khoản này!!"));
+
+
+    return res.status(200).json(user);
+  } catch (error) {
+    // Handle token verification errors
+    return next(new ApiError(501, "Error"));
+  }
+
+};

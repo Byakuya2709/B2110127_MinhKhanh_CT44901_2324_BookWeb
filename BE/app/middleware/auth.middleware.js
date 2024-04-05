@@ -2,6 +2,7 @@ const User = require("../model/user.model");
 const jwt = require("jsonwebtoken");
 const ApiError = require("../middleware/api-error");
 const config = require("../config/config")
+const Manager = require("../model/mangager.model")
 
 exports.authenticate = (req, res, next) => {
   try {
@@ -20,8 +21,7 @@ exports.authenticate = (req, res, next) => {
 exports.authorize = async (req, res, next) => {
   try {
     const userId = req.UserId;
-    const user = await User.findById(userId);
-    console.log(userId);
+    const user = await Manager.findById(userId);
     if (!user || user.role != "manager") {
       return next(new ApiError(401, "BẠN KHÔNG CÓ QUYỀN TRUY CẬP ĐỂ THỨC HIỆN THAO TÁC NÀY"));
     }

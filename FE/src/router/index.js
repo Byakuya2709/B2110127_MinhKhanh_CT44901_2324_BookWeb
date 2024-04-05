@@ -79,6 +79,12 @@ const routes = [
                 name: "NewPublisher",
                 component: () => import("../views/Publisher/NewPublisher.vue")
             },
+            {
+                path: "book/borrow/:id",
+                name: "BorrowManaga",
+                component: () => import("../views/BorrowManaga.vue"),
+
+            },
         ]
     }
 

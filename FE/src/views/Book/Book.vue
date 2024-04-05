@@ -9,10 +9,10 @@
       <p class=" mt-6 mb-6  font-bold tracking-tight text-gray-900 dark:text-white text-4xl">Sách</p>
     </div>
       <div>
-        <div v-if="filteredBook.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div v-if="filteredBook.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <!-- Displaying books -->
           <BookCard v-for="(book, index) in filteredBook" :key="index" :book="book" @edit-book="editBook" @delete-book="deleteBook">
-            <img class="w-50 h-40 mb-3 shadow-lg" :src="`../../public/Books/book${index}.jpg`" alt="Book image" />
+            <img class="w-50 h-40 m-3 shadow-lg" :src="`../../public/Books/${book.title}.png`" alt="Book image" />
           </BookCard>
         </div>
         <div v-else>
