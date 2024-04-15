@@ -50,9 +50,9 @@ exports.updatePublisher = async (req, res, next) => {
         const { publisherName, address } = req.body;
         const isExistingPublisher = await Publisher.findOne({ publisherName: { $regex: new RegExp(publisherName, 'i') } });
 
-        if (isExistingPublisher) {
-            return next(new ApiError(400, "Nhà xuất bản đã tồn tại Hoặc trùng với tên cũ"));
-        }
+        // if (isExistingPublisher) {
+        //     return next(new ApiError(400, "Nhà xuất bản đã tồn tại Hoặc trùng với tên cũ"));
+        // }
 
         const updatedPublisher = await Publisher.findByIdAndUpdate(publisherId, { publisherName, address });
 

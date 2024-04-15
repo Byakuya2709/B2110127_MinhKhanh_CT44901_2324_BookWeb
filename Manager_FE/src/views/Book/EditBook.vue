@@ -87,7 +87,7 @@
               <div class="my-3 flex justify-center items-center">
                 <input
                   type="submit"
-                  value="Tạo Mới"
+                  value="Chỉnh Sửa"
                   class="rounded-full bg-blue-600 border-blue-600 px-8 py-2 text-white w-1/2 active:true:hover:bg-violet-600 disabled:opacity-25"
                   :disabled="!isValidated"
                 />

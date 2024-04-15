@@ -12,7 +12,7 @@
         <div v-if="filteredBook.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <!-- Displaying books -->
           <BookCard v-for="(book, index) in filteredBook" :key="index" :book="book" @edit-book="editBook" @delete-book="deleteBook">
-            <img class="w-50 h-40 m-3 shadow-lg" :src="`/src/assets/Books/${book.title}.png`" alt="Book image" />
+            <img class="w-50 h-40 m-3 shadow-lg" :src="`/src/assets/Books/${book.title}.png`" :alt="book.title" />
           </BookCard>
         </div>
         <div v-else>
@@ -81,7 +81,7 @@
 
       async deleteBook(book) {
         try {
-          const confirmDelete = confirm('Bạn có chắc chắn muốn xóa sách này?');
+          const confirmDelete = confirm(`Bạn có chắc chắn muốn xóa sách "${book.title}" này?`);
           if (!confirmDelete) return;
           
           const response = await api.delete(`/manager/book/${book._id}`);

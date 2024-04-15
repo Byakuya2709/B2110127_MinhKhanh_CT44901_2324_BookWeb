@@ -4,7 +4,7 @@
       <div class="flex justify-center items-center h-full">
         <div class="flex max-w-4xl mt-20">
           <div class="bg-white p-8 w-full lg:w-1/2">
-            <h1 class="text-gray-700 text-3xl text-center">Đăng Nhập</h1>
+            <h1 class="text-gray-700 text-3xl text-center">Đăng Nhập Người Dùng</h1>
             <form @submit.prevent = "loginUser">
               <div class="my-3">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>

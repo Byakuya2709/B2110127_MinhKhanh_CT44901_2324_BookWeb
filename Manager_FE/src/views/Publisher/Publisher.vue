@@ -88,7 +88,7 @@ export default {
     },
     async deletePublisher(publisher) {
       try {
-        const confirmDelete = confirm('Bạn có chắc chấn muốn xóa nhà xuất bản này');
+        const confirmDelete = confirm(`Bạn có chắc chấn muốn xóa nhà xuất bản "${publisher.publisherName}" này`);
         if (!confirmDelete) return;
         
        const response= await api.delete(`/manager/publisher/${publisher._id}`);

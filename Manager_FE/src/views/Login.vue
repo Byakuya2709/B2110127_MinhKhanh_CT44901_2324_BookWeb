@@ -101,7 +101,7 @@
           if (res.status == 201) {
             this.showAlert('Success', res.data.message+" . Đang chuyển sang trang quản lý");
             setTimeout(() => {
-              this.$router.push('/manager');
+              this.$router.push('/manager/profile');
             }, 2000);
           }
           else if (res.response.status==404) {

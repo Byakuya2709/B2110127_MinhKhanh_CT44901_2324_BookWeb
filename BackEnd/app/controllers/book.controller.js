@@ -50,9 +50,9 @@ exports.updateBook = async (req, res, next) => {
         const { title, price, publisher, publicationDate, available } = req.body;
         const isExistingBook = await Book.findOne({ title: { $regex: new RegExp(title, 'i') } });
 
-        if (isExistingBook) {
-            return next(new ApiError(400, "Sách này đã tồn tại Hoặc trùng với tên cũ"));
-        }
+        // if (isExistingBook) {
+        //     return next(new ApiError(400, "Sách này đã tồn tại Hoặc trùng với tên cũ"));
+        // }
 
         const updatedBook = await Book.findByIdAndUpdate(bookId, { title, price, publisher, publicationDate, available });
 

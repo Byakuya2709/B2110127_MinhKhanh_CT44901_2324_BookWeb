@@ -209,7 +209,7 @@ async newBook() {
             this.showAlert('Success', `Tạo mới thành công.`);
              setTimeout(() => {
               this.hideAlert();
-              this.$router.push('/manager');
+              this.$router.push('/manager/book');
               }, 2000);
              
           }
