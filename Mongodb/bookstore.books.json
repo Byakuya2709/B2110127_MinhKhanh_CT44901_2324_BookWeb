@@ -1,0 +1,104 @@
+[{
+  "_id": {
+    "$oid": "661058fb7a8d0f1a2f39e110"
+  },
+  "title": "Sau Những Tán Lá",
+  "price": 130000,
+  "publisher": "NXB Giáo Dục",
+  "publicationDate": {
+    "$date": "2024-04-24T00:00:00.000Z"
+  },
+  "available": 3,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6610590d7a8d0f1a2f39e117"
+  },
+  "title": "Chiến Hay Chạy",
+  "price": 50000,
+  "publisher": "NXB Kim Đồng",
+  "publicationDate": {
+    "$date": "2024-04-26T00:00:00.000Z"
+  },
+  "available": 2,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "661059577a8d0f1a2f39e13a"
+  },
+  "title": "Trắng Và Đen",
+  "price": 110000,
+  "publisher": "NXB Quản Văn",
+  "publicationDate": {
+    "$date": "2024-04-19T00:00:00.000Z"
+  },
+  "available": 5,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "661059ad7a8d0f1a2f39e151"
+  },
+  "title": "Vượt Cùng Nước Lớn",
+  "price": 90000,
+  "publisher": "NXB Kim Đồng",
+  "publicationDate": {
+    "$date": "2024-04-23T00:00:00.000Z"
+  },
+  "available": 4,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "661059c17a8d0f1a2f39e159"
+  },
+  "title": "Sâu Vào Những Giấc Mộng",
+  "price": 189000,
+  "publisher": "NXB Kim Đồng",
+  "publicationDate": {
+    "$date": "2024-04-03T00:00:00.000Z"
+  },
+  "available": 5,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "661059f27a8d0f1a2f39e163"
+  },
+  "title": "Món Ngon Từ Hải Sản",
+  "price": 43000,
+  "publisher": "NXB Giáo Dục",
+  "publicationDate": {
+    "$date": "2024-04-27T00:00:00.000Z"
+  },
+  "available": 1,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66105a147a8d0f1a2f39e171"
+  },
+  "title": "Sau Những Tán Lá",
+  "price": 43000,
+  "publisher": "NXB Kim Đồng",
+  "publicationDate": {
+    "$date": "2024-04-02T00:00:00.000Z"
+  },
+  "available": 1,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66105a317a8d0f1a2f39e17a"
+  },
+  "title": "Nhớ Một Thời Đã Quên",
+  "price": 210000,
+  "publisher": "NXB Tầm Nhìn",
+  "publicationDate": {
+    "$date": "2024-04-24T00:00:00.000Z"
+  },
+  "available": 2,
+  "__v": 0
+}]

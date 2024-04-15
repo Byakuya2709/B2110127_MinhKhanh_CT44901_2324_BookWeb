@@ -1,0 +1,48 @@
+[{
+  "_id": {
+    "$oid": "6610567c7a8d0f1a2f39e0d9"
+  },
+  "publisherName": "NXB Giáo Dục",
+  "address": "Số 316 Đ. 30 Tháng 4, Xuân Khánh, Ninh Kiều, Cần Thơ",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "661057217a8d0f1a2f39e0e8"
+  },
+  "publisherName": "NXB Kim Đồng",
+  "address": "55 Quang Trung, Hai Bà Trưng, Hà Nội",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "661057747a8d0f1a2f39e0f5"
+  },
+  "publisherName": "NXB Quản Văn",
+  "address": "Hà Nội",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "661057967a8d0f1a2f39e0fa"
+  },
+  "publisherName": "NXB Tầm Nhìn",
+  "address": "16 Hàng Chuối, Phạm Đình Hổ, Hai Bà Trưng, Hà Nội, Vietnam",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "661057d27a8d0f1a2f39e100"
+  },
+  "publisherName": "NXB Trẻ",
+  "address": "280D Trưng Nữ Vương, P. Bình Thuận, Quận Hải Châu, TP. Đà Nẵng",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "661057f27a8d0f1a2f39e105"
+  },
+  "publisherName": "NXB Tri Thức",
+  "address": "ngõ 19 Duy Tân - quận Cầu Giấy - Hà Nội - Việt Nam.",
+  "__v": 0
+}]
